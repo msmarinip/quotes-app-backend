@@ -12,7 +12,9 @@ class Server {
 
         this.paths = {
             users: '/api/users',
-            auth: '/api/auth'
+            auth: '/api/auth',
+            author: '/api/author',
+            genre: '/api/genre'
         }
         //Conectar a la base de datos
         this.conectarDB();
@@ -43,6 +45,8 @@ class Server {
     routes() {
         this.app.use(this.paths.users, require('../routes/users'));
         this.app.use(this.paths.auth, require('../routes/auth'));
+        this.app.use(this.paths.author, require('../routes/author'));
+        this.app.use(this.paths.genre, require('../routes/genre'));
     }
 
     listen() {

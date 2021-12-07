@@ -18,6 +18,8 @@ router.post('/login',[
     validateFields
 ],login );
 
+//TODO: logout
+
 
 router.get('/',[
     validateJWT
