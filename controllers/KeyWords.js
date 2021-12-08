@@ -1,17 +1,17 @@
 const { response, request } = require("express");
-const Genre = require("../models/Genre");
+const KeyWords = require("../models/KeyWords");
 
 
-const genrePost = async (req = request, res = response) => {
+const keyWordsPost = async (req = request, res = response) => {
     const { name } = req.body;
     try {
-        const genre = new Genre({ name })
+        const keyWords = new KeyWords({ name })
 
-        await genre.save();
+        await keyWords.save();
 
         res.status(201).json({
             ok: true,
-            genre
+            keyWords
         })
         
     } catch (error) {
@@ -24,13 +24,13 @@ const genrePost = async (req = request, res = response) => {
 }
 
 
-const genreList = async (req = request, res = response) => {
+const keyWordsList = async (req = request, res = response) => {
     try {
-        const genre = await Genre.find().sort({ name: 1 })
+        const keyWords = await KeyWords.find().sort({ name: 1 })
         
         res.status(201).json({
             ok: true,
-            genre
+            keyWords
         })
     } catch (error) {
         
@@ -42,14 +42,14 @@ const genreList = async (req = request, res = response) => {
     }
 }
 
-const genreGetById = async (req = request, res = response) => {
+const keyWordsGetById = async (req = request, res = response) => {
     const { id } = req.params;
     try {
-        const genre = await Genre.findById(id);
+        const keyWords = await KeyWords.findById(id);
         
         res.status(201).json({
             ok: true,
-            genre
+            keyWords
         })
     } catch (error) {
         
@@ -60,16 +60,16 @@ const genreGetById = async (req = request, res = response) => {
         })
     }
 }
-const genreDelete = async (req = request, res = response) => {
+const keyWordsDelete = async (req = request, res = response) => {
     const { id } = req.params;
     try {
 
         //TODO: después de hacer el crud de libros, chequear que el género seleccionado no pertenezca a ningún libro
-        const genre = await Genre.findByIdAndDelete(id);
+        const keyWords = await KeyWords.findByIdAndDelete(id);
         
         res.status(201).json({
             ok: true,
-            genre
+            keyWords
         })
     } catch (error) {
         
@@ -82,8 +82,8 @@ const genreDelete = async (req = request, res = response) => {
 }
 
 module.exports = {
-    genreDelete,
-    genreGetById,
-    genreList,
-    genrePost,
+    keyWordsDelete,
+    keyWordsGetById,
+    keyWordsList,
+    keyWordsPost,
 }

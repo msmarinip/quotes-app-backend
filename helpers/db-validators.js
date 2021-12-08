@@ -1,4 +1,5 @@
-const { User } = require('../models');
+const { User, Author } = require('../models');
+
 
 const emailExiste = async( email = '' ) => {
 
@@ -18,10 +19,25 @@ const existeUsuarioPorId = async( id ) => {
     }
 }
 
+const existsAuthorById = async( id ) => {
+    
+    // Verificar si el autor existe
+    try {
+
+        await Author.findById(id);
+        
+    } catch (error) {
+        console.log(error)
+        throw new Error(`El id no existe ${ id }`);
+    }
+
+
+}
 
 
 module.exports = {
     emailExiste,
-    existeUsuarioPorId
+    existeUsuarioPorId,
+    existsAuthorById
 }
 
