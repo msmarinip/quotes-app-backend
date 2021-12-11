@@ -33,8 +33,8 @@ const authorPut = async (req = request, res = response) => {
     try {
       
 
-        await Author.findByIdAndUpdate(id, rest)
-        const author = await Author.findById(id);
+        const author = await Author.findByIdAndUpdate(id, rest, { new: true })
+        
         res.status(201).json({
             ok: true,
             author

@@ -16,8 +16,9 @@ class Server {
             author: '/api/author',
             genre: '/api/genre',
             book: '/api/book',
-            keyWord: '/api/keyWord',
-            quotes: '/api/quotes'
+            keyWords: '/api/keyWords',
+            quotes: '/api/quotes',
+            search: '/api/search'
         }
         //Conectar a la base de datos
         this.conectarDB();
@@ -51,8 +52,9 @@ class Server {
         this.app.use(this.paths.author, require('../routes/author'));
         this.app.use(this.paths.genre, require('../routes/genre'));
         this.app.use(this.paths.book, require('../routes/book'));
-        this.app.use(this.paths.keyWord, require('../routes/keyWord'));
+        this.app.use(this.paths.keyWords, require('../routes/keyWords'));
         this.app.use(this.paths.quotes, require('../routes/quotes'));
+        this.app.use(this.paths.search, require('../routes/search'));
 
     }
 

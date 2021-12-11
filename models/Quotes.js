@@ -23,20 +23,30 @@ const QuotesSchema = Schema({
     language: {
         type: String,
         require: true,
-        default: 'Español',
-        enum: ['Español', 'English']
+        default: 'es',
+        enum: ['es', 'en']
     },
     isPublished: {
         type: Boolean,
         default: false
     },
+    isShared: {
+        type: Boolean,
+        default: false
+    },
     keyWords: {
-        type: [ Schema.Types.String ],
-        ref: 'KeyWord'
+        type: Array,
+        require: false
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        require: true
     }
-
-
 });
+
+
+QuotesSchema.index({  keyWords: 'text', quote: 'text' }, { default_language: "spanish" });
 
 
 
@@ -46,5 +56,8 @@ QuotesSchema.method.toJSON = function () {
 
     return quotes;
 }
+
+const Quotes =  model('Quotes', QuotesSchema) ;
+Quotes.syncIndexes();
 
 module.exports = model('Quotes', QuotesSchema) 

@@ -64,7 +64,7 @@ const keyWordsDelete = async (req = request, res = response) => {
     const { id } = req.params;
     try {
 
-        //TODO: después de hacer el crud de libros, chequear que el género seleccionado no pertenezca a ningún libro
+        
         const keyWords = await KeyWords.findByIdAndDelete(id);
         
         res.status(201).json({
@@ -81,9 +81,32 @@ const keyWordsDelete = async (req = request, res = response) => {
     }
 }
 
+const keyWordsAddMany = (keyWords) => {
+    //TODO: try - catch err
+     if(keyWords) {
+        if (keyWords.length > 0 ) {
+            // const arrayKey = keyWords.split(',')
+            keyWords.map(async (value, index) => {
+                await KeyWords.findOneAndUpdate(
+                        { name: value.trim().toUpperCase() }, 
+                        { name: value.trim().toUpperCase() }, 
+                        { 
+                            upsert: true,
+                            new: true,
+                            setDefaultsOnInsert: true 
+                        }
+                )
+                
+            });
+            
+        }
+    }
+}
+
 module.exports = {
+    keyWordsAddMany,
     keyWordsDelete,
     keyWordsGetById,
     keyWordsList,
-    keyWordsPost,
+    keyWordsPost
 }
